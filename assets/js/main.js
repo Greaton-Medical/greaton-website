@@ -9,15 +9,20 @@
 (() => {
   "use strict";
 
+  // Pull overrides from WordPress (wp_localize_script) or fall back to static paths
+  const WP = (typeof GREATON_CONFIG !== 'undefined') ? GREATON_CONFIG : null;
+  const tdir = WP ? WP.templateUri : '';
+  const wpPath = (rel) => tdir ? tdir + '/' + rel : rel;
+
   // ============================================================
-  // CONFIG — single source of truth (port this to WP/ACF)
+  // CONFIG — single source of truth
   // ============================================================
   const CONFIG = {
 
-    // Video paths (in WP these become attachment URLs)
+    // Video paths
     media: {
-      loading: "assets/media/loading.mp4",
-      main:    "assets/media/greaton.mp4",
+      loading: wpPath('assets/media/loading.mp4'),
+      main:    WP?.media?.main ?? wpPath('assets/media/greaton.mp4'),
     },
 
     // Loading screen — minimum + maximum time it can stay up
@@ -28,9 +33,9 @@
 
     // Hero — first view, controlled by CSS reveal (not scroll)
     hero: {
-      title:      "This is what changes.",
+      title:      WP?.hero?.title ?? "This is what changes.",
       accent:     ["is"],
-      sub:        "You're spending on marketing. You're not sure what it brings back.",
+      sub:        WP?.hero?.sub   ?? "You're spending on marketing. You're not sure what it brings back.",
       fadeOutAt:  0.5,
       // 0 = all chars stay white, 1.3 = last char goes dark grey
       fadeStrength: 0.7,
@@ -46,7 +51,7 @@
         id: "calendar",
         position: "mid-left",
         label: "Empty Patient Slots",
-        headline: "Your calendar fills.",
+        headline: WP?.scenes?.calendar ?? "Your calendar fills.",
         accent: ["calendar"], // TODO: confirm — screenshot unclear if whole word or suffix is blue
         fadeStrength: 0.4,
         videoIn: 1.0, videoPeak: 1.5, videoOut: 2.2, dwellPx: 560,
@@ -55,7 +60,7 @@
         id: "consultations",
         position: "mid-left",
         label: "Inconsistent Patient Flow",
-        headline: "Consultations\nevery month.",
+        headline: WP?.scenes?.consultations ?? "Consultations\nevery month.",
         accent: [],
         fadeStrength: 0.4,
         videoIn: 2.2, videoPeak: 3.2, videoOut: 3.5, dwellPx: 560,
@@ -64,7 +69,7 @@
         id: "vanity",
         position: "mid-left",
         label: "Vanity Metrics",
-        headline: "You know what's\nworking.",
+        headline: WP?.scenes?.vanity ?? "You know what's\nworking.",
         accent: ["what's"], // TODO: confirm accent
         fadeStrength: 0.4,
         videoIn: 3.5, videoPeak: 5.2, videoOut: 5.80, dwellPx: 560,
@@ -73,7 +78,7 @@
         id: "wasted",
         position: "mid-right",
         label: "Wasted Money",
-        headline: "Every dollar tracked.\nEvery patient traced.",
+        headline: WP?.scenes?.wasted ?? "Every dollar tracked.\nEvery patient traced.",
         accent: ["patient"], // TODO: confirm accent
         fadeStrength: 0.45,
         videoIn: 5.80, videoPeak: 6.7, videoOut: 7.20, dwellPx: 560,
@@ -83,7 +88,7 @@
         position: "mid-center",
         label: null,
         // Special: rendered as three stacked lines, right-aligned within a fit-content block
-        lines: ["One system.", "One team.", "You focus on patients."],
+        lines: (WP?.scenes?.final_lines ?? "One system.|One team.|You focus on patients.").split('|'),
         accent: ["system", "team", "focus"],
         fadeStrength: 0,
         videoIn: 7.20, videoPeak: 9.30, videoOut: 9.50, dwellPx: 840,
@@ -101,46 +106,47 @@
 
     // ── Section 4 — Stop Scroll (4 pinned states) ───────────────
     section4: {
-      cta: "The Greaton System",
+      cta:     WP?.section4?.cta     ?? "The Greaton System",
+      cta_url: WP?.section4?.cta_url ?? '#',
       scrollRunwayPx: 4800,
       states: [
         {
-          headline: "One system.\nEverything handled.",
+          headline: WP?.section4?.headline_main ?? "One system.\nEverything handled.",
           accent: ["system", "handled"],
           popups: [],
         },
         {
-          headline: "One system.\nEverything handled.",
+          headline: WP?.section4?.headline_main ?? "One system.\nEverything handled.",
           accent: ["system", "handled"],
           popups: [
-            { type: "icon", src: "assets/icons/ads.png",                                x: 0, y: 0 },
-            { type: "card", src: "assets/icons/ads.png",    text: "Ads that bring patients in.", x: 40, y: 10 },
-            { type: "icon", src: "assets/icons/search.png",                             x: 30, y: 48 },
-            { type: "card", src: "assets/icons/search.png", text: "SEO that compounds.",         x: 70, y: 60 },
+            { type: "icon", src: wpPath("assets/icons/ads.png"),                                                            x: 0, y: 0 },
+            { type: "card", src: wpPath("assets/icons/ads.png"),    text: WP?.section4?.card1 ?? "Ads that bring patients in.", x: 40, y: 10 },
+            { type: "icon", src: wpPath("assets/icons/search.png"),                                                         x: 30, y: 48 },
+            { type: "card", src: wpPath("assets/icons/search.png"), text: WP?.section4?.card2 ?? "SEO that compounds.",        x: 70, y: 60 },
           ],
         },
         {
-          headline: "One system.\nEverything handled.",
+          headline: WP?.section4?.headline_main ?? "One system.\nEverything handled.",
           accent: ["system", "handled"],
           popups: [
-            { type: "icon", src: "assets/icons/document.png",                                        x: -10, y:  -15 },
-            { type: "card", src: "assets/icons/document.png", text: "A sales team that books consultations.", x: 30, y:  -6 },
-            { type: "icon", src: "assets/icons/growth.png",                                           x: 16, y: 28 },
-            { type: "card", src: "assets/icons/growth.png",   text: "Tracking that shows what's working.",    x: 58, y: 36 },
-            { type: "icon", src: "assets/icons/ads.png",    x: 58, y: 74 },
-            { type: "icon", src: "assets/icons/search.png", x: 16, y: 74 },
+            { type: "icon", src: wpPath("assets/icons/document.png"),                                                                       x: -10, y: -15 },
+            { type: "card", src: wpPath("assets/icons/document.png"), text: WP?.section4?.card3 ?? "A sales team that books consultations.", x: 30,  y: -6  },
+            { type: "icon", src: wpPath("assets/icons/growth.png"),                                                                         x: 16,  y: 28  },
+            { type: "card", src: wpPath("assets/icons/growth.png"),   text: WP?.section4?.card4 ?? "Tracking that shows what's working.",   x: 58,  y: 36  },
+            { type: "icon", src: wpPath("assets/icons/ads.png"),      x: 58, y: 74 },
+            { type: "icon", src: wpPath("assets/icons/search.png"),   x: 16, y: 74 },
           ],
         },
         {
-          headline: "Everything connected.\nNothing wasted.",
+          headline: WP?.section4?.headline_final ?? "Everything connected.\nNothing wasted.",
           accent: ["connected", "wasted"],
           popups: [
-            { type: "bracket", src: "assets/icons/greaton-left.png",  x: 0, y: 0 },
-            { type: "bracket", src: "assets/icons/greaton-right.png", x: 84, y: 86 },
-            { type: "icon",    src: "assets/icons/document.png",      x: 10, y: 12 },
-            { type: "icon",    src: "assets/icons/growth.png",        x: 56, y: 12 },
-            { type: "icon",    src: "assets/icons/ads.png",           x: 10, y: 60 },
-            { type: "icon",    src: "assets/icons/search.png",        x: 56, y: 60 },
+            { type: "bracket", src: wpPath("assets/icons/greaton-left.png"),  x: 0,  y: 0  },
+            { type: "bracket", src: wpPath("assets/icons/greaton-right.png"), x: 84, y: 86 },
+            { type: "icon",    src: wpPath("assets/icons/document.png"),      x: 10, y: 12 },
+            { type: "icon",    src: wpPath("assets/icons/growth.png"),        x: 56, y: 12 },
+            { type: "icon",    src: wpPath("assets/icons/ads.png"),           x: 10, y: 60 },
+            { type: "icon",    src: wpPath("assets/icons/search.png"),        x: 56, y: 60 },
           ],
         },
       ],
@@ -148,25 +154,25 @@
 
     // ── Section 5 — curved video slider ─────────────────────────
     section5: {
-      headline:  "Your calendar fills with patients\n who chose you.",
+      headline:  WP?.section5?.headline ?? "Your calendar fills with patients\n who chose you.",
       accent:    ["patients"],
       activeIdx: 0,
-      slides: [
-        { label: "Plastic Surgery",       src: "assets/media/plastic-surgery.mp4" },
-        { label: "MedSpa",                src: "assets/media/medspa.mp4" },
-        { label: "Cosmetic Dentistry",    src: "assets/media/cosmetic-dentistry.mp4" },
-        { label: "Aesthetic Dermatology", src: "assets/media/aesthetic-dermatology.mp4" },
-        { label: "Orthodontics",          src: "assets/media/orthodontics.mp4" },
-        { label: "Ophthalmology",         src: "assets/media/opthalmology.mp4" },
+      slides: WP?.section5?.slides ?? [
+        { label: "Plastic Surgery",       src: wpPath("assets/media/plastic-surgery.mp4") },
+        { label: "MedSpa",                src: wpPath("assets/media/medspa.mp4") },
+        { label: "Cosmetic Dentistry",    src: wpPath("assets/media/cosmetic-dentistry.mp4") },
+        { label: "Aesthetic Dermatology", src: wpPath("assets/media/aesthetic-dermatology.mp4") },
+        { label: "Orthodontics",          src: wpPath("assets/media/orthodontics.mp4") },
+        { label: "Ophthalmology",         src: wpPath("assets/media/opthalmology.mp4") },
       ],
       scrollRunwayPx: 2400,
     },
 
     // ── Section 6 — revenue bleeding ────────────────────────────
     section6: {
-      headline: "See where your\nrevenue is bleeding.",
-      body:     "20 minutes. We learn your goals and numbers first. Then you get a marketing review built around your practice. Not a template.",
-      cta:      "Request Marketing Review",
+      headline: WP?.section6?.headline ?? "See where your\nrevenue is bleeding.",
+      body:     WP?.section6?.body     ?? "20 minutes. We learn your goals and numbers first. Then you get a marketing review built around your practice. Not a template.",
+      cta:      WP?.section6?.cta      ?? "Request Marketing Review",
       image:    "", // TODO: add doctor photo path
     },
 
@@ -210,7 +216,7 @@
         {
           type:     "testimonial-card",
           cardBg:   "#e9f0fb",
-          cardLogo: "assets/logos/sweetgrassplasticsurgery.png",
+          cardLogo: WP?.section2?.testimonial?.cardLogo ?? wpPath("assets/logos/sweetgrassplasticsurgery.png"),
           cardStats: [
             { label: "Revenue Growth", value: "$91,750", color: "#7ADAEF" },
             { label: "ROI",            value: "6.1x",    color: "#9DA2FF" },
@@ -219,30 +225,30 @@
           ],
           // right panel
           panel: "testimonial",
-          quote:  "They genuinely care about the success of every brand they work with, and it shows in the remarkable growth we\u2019ve experienced.",
-          author: "Olivia Burgess",
-          role:   "Marketing Director, Sweetgrass\n Plastic Surgery & Med Spa",
-          avatar: "assets/images/olivia.png",
+          quote:  WP?.section2?.testimonial?.quote  ?? "They genuinely care about the success of every brand they work with, and it shows in the remarkable growth we\u2019ve experienced.",
+          author: WP?.section2?.testimonial?.author ?? "Olivia Burgess",
+          role:   WP?.section2?.testimonial?.role   ?? "Marketing Director, Sweetgrass\n Plastic Surgery & Med Spa",
+          avatar: WP?.section2?.testimonial?.avatar ?? wpPath("assets/images/olivia.png"),
         },
       ],
-      logos: [
-        { name: "SeniorCareFinder",  src: "assets/logos/seniorcarefinder.png" },
-        { name: "SONY",              src: "assets/logos/sony.png" },
-        { name: "SweetGrass",        src: "assets/logos/sweetgrassplasticsurgery.png" },
-        { name: "Recording Academy", src: "assets/logos/recordingacademy.png" },
-        { name: "Wright",            src: "assets/logos/wright.png" },
-        { name: "Rose & Arbor",      src: "assets/logos/rosearbor.png" },
+      logos: WP?.section2?.logos ?? [
+        { name: "SeniorCareFinder",  src: wpPath("assets/logos/seniorcarefinder.png") },
+        { name: "SONY",              src: wpPath("assets/logos/sony.png") },
+        { name: "SweetGrass",        src: wpPath("assets/logos/sweetgrassplasticsurgery.png") },
+        { name: "Recording Academy", src: wpPath("assets/logos/recordingacademy.png") },
+        { name: "Wright",            src: wpPath("assets/logos/wright.png") },
+        { name: "Rose & Arbor",      src: wpPath("assets/logos/rosearbor.png") },
       ],
     },
 
     // ── Section 1 — light hero ──────────────────────────────────
     section1: {
-      title:        "Never wonder where\n the next patient\n comes from.",
-      accent:       ["next"], // TODO: comp shows only "ext" blue — partial word; whole word used as approx
-      sub:          "20+ booked consultations. Every month. Done for you.",
-      cta:          "Request Marketing Review",
+      title:        WP?.section1?.title ?? "Never wonder where\n the next patient\n comes from.",
+      accent:       ["next"],
+      sub:          WP?.section1?.sub   ?? "20+ booked consultations. Every month. Done for you.",
+      cta:          WP?.section1?.cta   ?? "Request Marketing Review",
       fadeStrength: 0.5,
-      video:        "assets/media/hero-video.mp4",
+      video:        WP?.section1?.video ?? wpPath("assets/media/hero-video.mp4"),
       scrollRunwayPx: 2800,
       dwellPx:        1200,
     },
@@ -1529,6 +1535,47 @@
   // ============================================================
   // Boot
   // ============================================================
+  function initMobileMenu() {
+    const toggle    = document.getElementById('menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    if (!toggle || !mobileNav) return;
+
+    function openMenu() {
+      toggle.classList.add('open');
+      mobileNav.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+      mobileNav.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      toggle.classList.remove('open');
+      mobileNav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    toggle.addEventListener('click', () => {
+      toggle.classList.contains('open') ? closeMenu() : openMenu();
+    });
+
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', closeMenu);
+    });
+  }
+
+  function wireCtaButtons() {
+    [
+      { id: 's1-cta', url: WP?.section1?.cta_url },
+      { id: 's4-cta', url: WP?.section4?.cta_url },
+      { id: 's6-cta', url: WP?.section6?.cta_url },
+    ].forEach(({ id, url }) => {
+      if (!url || url === '#') return;
+      const btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', () => window.location.href = url);
+    });
+  }
+
   function boot() {
     buildSceneElements();
     initSection2();
@@ -1540,6 +1587,8 @@
     initNavTheme();
     initMouseEffects();
     initSectionEntrances();
+    wireCtaButtons();
+    initMobileMenu();
 
     buildScrollMap();
     initVideoSnap();

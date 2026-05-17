@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Greaton — This is what changes.</title>
+  <meta name="description" content="Marketing that's tracked end-to-end. Empty patient slots filled, every dollar traced." />
+
+
+  <!-- Preload videos parallel -->
+  <link rel="preload" as="video" type="video/mp4" href="assets/media/loading.mp4">
+  <link rel="preload" as="video" type="video/mp4" href="assets/media/greaton.mp4">
+
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+  <!-- =====================================================
+       LOADING SCREEN
+       ===================================================== -->
+  <div id="loading" aria-hidden="true">
+    <video id="loading-video"
+           src="assets/media/loading.mp4"
+           muted
+           playsinline
+           autoplay
+           preload="auto"></video>
+  </div>
+
+  <!-- Single global background video — fixed, behind all light sections -->
+  <video id="bg-vid"
+         src="assets/media/BG.mp4"
+         muted
+         playsinline
+         autoplay
+         loop
+         preload="auto"
+         aria-hidden="true"></video>
+
+  <!-- =====================================================
+       NAV
+       ===================================================== -->
+  <nav>
+    <a class="nav-logo" href="/">
+      <img class="logo-light" src="/assets/icons/logo.svg"/>
+      <img class="logo-dark"  src="/assets/icons/logo-alt.svg"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#system">The Greaton System</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <button class="nav-cta">Request Marketing Review</button>
+  </nav>
+
+  <!-- =====================================================
+       SECTION 1 — Light hero with scaling video
+       ===================================================== -->
+  <section id="section-1" data-theme="light">
+    <div id="s1-sticky">
+
+      <!-- Text block — fades out as player expands -->
+      <div id="s1-content">
+        <h1 id="s1-title"><!-- filled by JS --></h1>
+        <p id="s1-sub"><!-- filled by JS --></p>
+        <button id="s1-cta" class="s1-cta cta-common"><!-- filled by JS --></button>
+      </div>
+
+      <!-- Video player — click play btn OR scroll to play + expand -->
+      <div id="s1-player">
+        <video id="s1-vid"
+               src="assets/media/intro-video.mp4"
+               muted
+               playsinline
+               loop
+               preload="auto"></video>
+        <div id="s1-play-btn" aria-label="Play">&#9654;</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       SECTION 2 — Results / charts (scroll-pinned card stack)
+       ===================================================== -->
+  <section id="section-2" data-theme="light">
+    <div id="s2-sticky">
+      <h2 id="s2-title"><!-- filled by JS --></h2>
+      <div id="s2-main">
+        <div id="s2-stack"><!-- stacked cards injected by JS --></div>
+        <div id="s2-panel-wrap"><!-- right panels injected by JS --></div>
+      </div>
+      <div id="s2-logos"><!-- logo images injected by JS --></div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       HERO + SCROLL-SCRUBBED VIDEO SECTION
+       Section height is set dynamically by JS to create
+       enough scroll runway for every scene to play out.
+       ===================================================== -->
+  <section id="video-section" data-theme="dark">
+    <div id="sticky">
+
+      <!-- The scroll-controlled video -->
+      <video id="vid"
+             src="assets/media/greaton.mp4"
+             muted
+             playsinline
+             preload="auto"></video>
+
+<!-- Hero title + sub (first view, fades out as scrubbing begins) -->
+      <div id="hero">
+        <h2 id="hero-title"><!-- filled by JS --></h2>
+        <p id="hero-sub"><!-- filled by JS --></p>
+      </div>
+
+      <!-- Scenes container — populated entirely from CONFIG.scenes in JS -->
+      <div id="scenes" aria-hidden="true"></div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+       SECTION 4 — Stop Scroll (3 pinned states, floating icons)
+       ===================================================== -->
+  <section id="section-4" data-theme="light">
+    <div id="s4-sticky">
+      <div id="s4-content">
+        <h2 id="s4-title"><!-- filled + updated by JS --></h2>
+        <button id="s4-cta" class="cta-common"><!-- filled by JS --></button>
+      </div>
+      <!-- Popups injected by JS -->
+      <div id="s4-popups" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       SECTION 5 — Curved video slider
+       ===================================================== -->
+  <section id="section-5" data-theme="light">
+    <div id="s5-sticky">
+      <h2 id="s5-title"><!-- filled by JS --></h2>
+      <div id="s5-carousel">
+        <div id="s5-track"><!-- slides injected by JS --></div>
+        <div id="s5-pill">
+          <button id="s5-prev" aria-label="Previous"><img src="assets/icons/left.svg" alt=""></button>
+          <span id="s5-pill-label"><!-- filled by JS --></span>
+          <button id="s5-next" aria-label="Next"><img src="assets/icons/right.svg" alt=""></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       SECTION 6 — Revenue bleeding / final CTA
+       ===================================================== -->
+  <section id="section-6" data-theme="light">
+    <div id="s6-inner">
+      <h2 id="s6-title"><!-- filled by JS --></h2>
+      <div id="s6-left">
+        <img id="s6-image"
+             src="assets/images/doctor-last-section.webp"
+             alt="Doctor consulting with a patient about their treatment plan"
+             width="640"
+             height="360" />
+      </div>
+      <div id="s6-right">
+        <p id="s6-body"><!-- filled by JS --></p>
+        <button id="s6-cta" class="cta-common"><!-- filled by JS --></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       Future sections will go here (System / Results / About)
+       ===================================================== -->
+
+  <footer id="site-footer">
+    <div class="footer-inner">
+      <a class="footer-logo" href="/"><img src="/assets/icons/greaton-footer.svg" alt="Greaton"></a>
+      <div class="footer-cols">
+        <ul class="footer-col">
+          <li><a href="#system">The Greaton System</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+        <ul class="footer-col">
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+        <ul class="footer-col">
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy &amp; Cookies</a></li>
+        </ul>
+      </div>
+      <div class="footer-copy">
+        <span>&copy; 2025 Greaton, LLC. All rights reserved.</span>
+        <span>Money-Back Guarantee Subject to Specific Terms and Conditions</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mouse glow follower -->
+  <div id="cursor-glow"></div>
+
+  <!-- Dev debug overlay (press D to toggle) -->
+  <div id="dbg">
+    <div>video: <span id="dbg-time">0.00</span>s</div>
+    <div>scroll: <span id="dbg-scroll">0</span>px</div>
+    <div>scene: <span id="dbg-scene">—</span></div>
+    <div style="margin-top:6px; color: rgba(90,171,255,0.5); font-size:10px">press D to toggle</div>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

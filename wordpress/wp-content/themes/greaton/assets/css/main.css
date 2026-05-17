@@ -347,7 +347,7 @@ body.loaded #vid { opacity: 1; transform: scale(1); }
 
 #hero-title {
   font-family: var(--font-display);
-  font-size: clamp(30px, 6.04vw, 116px);
+  font-size: clamp(32px, 6.04vw, 116px);
   font-weight: 600;
   line-height: 0.98;
 
@@ -425,13 +425,13 @@ body.loaded #hero-sub { opacity: 1; transform: translateY(0); }
 .headline {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(22px, 3.75vw, 72px);
+  font-size: clamp(32px, 3.75vw, 72px);
   font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1.04;
 }
 .headline.xl {
-  font-size: clamp(30px, 6.04vw, 116px);
+  font-size: clamp(32px, 6.04vw, 116px);
   line-height: 1.02;
 }
 
@@ -637,7 +637,7 @@ body.loaded #hint { opacity: 1; }
 
 #s2-title {
   font-family: var(--font-display);
-  font-size: clamp(18px, 2.92vw, 56px);
+  font-size: clamp(32px, 2.92vw, 56px);
   font-weight: 600;
   line-height: 1.05;
   color: var(--fg-light);
@@ -967,7 +967,7 @@ body.loaded #hint { opacity: 1; }
 }
 .s2-col-head {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 2vw, 3.2rem);
+  font-size: clamp(1.5rem, 2vw, 3.2rem);
   font-weight: 700;
   letter-spacing: -0.04em;
   color: var(--fg-light);
@@ -1088,7 +1088,7 @@ body.loaded #hint { opacity: 1; }
 
 #s1-title {
   font-family: var(--font-display);
-  font-size: clamp(24px, 4.17vw, 80px);
+  font-size: clamp(32px, 4.17vw, 80px);
   font-weight: 600;
   line-height: 1.0;
 
@@ -1217,7 +1217,7 @@ body.loaded #s1-player { opacity: 1; }
 
 #s4-title {
   font-family: var(--font-display);
-  font-size: clamp(24px, 4.17vw, 80px);
+  font-size: clamp(32px, 4.17vw, 80px);
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1.06;
@@ -1337,7 +1337,7 @@ body.loaded #s1-player { opacity: 1; }
 
 #s5-title {
   font-family: var(--font-display);
-  font-size: clamp(18px, 2.92vw, 56px);
+  font-size: clamp(32px, 2.92vw, 56px);
   font-weight: 600;
   line-height: 1.06;
   color: var(--fg-light);
@@ -1468,7 +1468,7 @@ body.loaded #s1-player { opacity: 1; }
 #s6-title {
   grid-column: 1 / -1;
   font-family: var(--font-display);
-  font-size: clamp(24px, 4.17vw, 80px);
+  font-size: clamp(32px, 4.17vw, 80px);
   font-weight: 600;
   line-height: 1.02;
   color: var(--fg-light);
@@ -1731,12 +1731,12 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
   .label { margin-bottom: 4px; }
   #s1-content { padding: 12vh 6vw 0; }
 
-  #s2-sticky  { padding: 9vh 6vw 4vh; }
+  #s2-sticky  { padding: 12vh 6vw 4vh; }
   #s2-title   { margin-bottom: 14px; }
   #s2-main    { flex-direction: column; align-items: center; gap: 3vh; }
-  #s2-stack   { width: 88vw; height: auto; aspect-ratio: 790 / 460; }
+  #s2-stack   { width: 88vw; height: 320px; aspect-ratio: 790 / 460; }
   .s2-card    { width: 81%; height: 82%; }
-  .s2-card:last-of-type { padding: 18px 22px; }
+  .s2-card:last-of-type { padding: 16px; }
   #s2-panel-wrap { width: 100%; height: auto; min-height: 120px; }
   .s2-bigstats { flex-wrap: wrap; gap: 4vw; }
   .s2-hbar-track { height: 26px; }
@@ -1744,31 +1744,39 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
   .s2-hbar-count { font-size: 16px; }
   .s2-avatar  { width: 52px; height: 52px; border-radius: 12px; }
   #s2-logos   { flex-wrap: wrap; gap: 8px; padding-top: 2vh; }
-  .s2-logo-badge { flex: 0 0 calc(50% - 8px); padding: 10px 12px; }
+  .s2-logo-badge { flex: 0 0 calc(50% - 8px); padding: 6px; }
   .s2-logo-badge img { max-width: 80px; max-height: 32px; }
-  .s2-quote { font-size: 18px; line-height: 22px; margin-bottom: 8px; text-align: center; }
+  .s2-quote { font-size: 13px; line-height: 22px; margin-bottom: 8px; text-align: center; }
   .s2-stats-grid { gap: 8px; padding: 0; }
-  .s2-sg-value { font-size: 20px !important; }
+  .s2-sg-label {font-size: 12px;}
+  .s2-sg-value { font-size: 16px !important; }
   .s2-sg-item { padding: 8px; }
   .s2-bigval { font-size: clamp(1.8rem, 7vw, 3rem) !important; }
   #s2-title  { text-align: center; }
   #s2-panel-wrap { text-align: center; }
   .s2-bigstats { justify-content: center; }
   .s2-col    { align-items: center; text-align: center; }
+  .s2-cols    { margin: 0 auto; }
   .s2-hbars  { width: 100%; }
-  
+
+  #s4-sticky  { padding: 96px 5vw 40px; }
   #s4-sticky::before { -webkit-mask-image: none; mask-image: none; }
   #s4-content { padding-left: 5vw; padding-right: 5vw; }
   #s4-cta     { min-width: 0; }
   #s4-popups  { display: none; }
 
-  #s5-sticky { gap: 3vh; }
-  #s5-title  { padding: 0 5vw; }
-  .s5-slide  { width: 80vw; height: 45vw; }
-  #s5-pill-label { min-width: 200px; padding: 10px 14px; }
-  #s5-prev, #s5-next { width: 38px; height: 44px; }
+  /* Section 5 — no sticky on tablet/mobile */
+  #section-5  { height: auto !important; }
+  #s5-sticky  { position: relative !important; height: auto !important; gap: 32px; padding: 96px 5vw 40px; }
+  #s5-title   { padding: 0; text-align: center; }
+  #s5-track   { height: 46vw; }
+  .s5-slide   { width: 80vw; height: 44vw; }
+  #s5-carousel { gap: 96px; }
+  #s5-pill    { position: relative !important; bottom: auto !important; left: auto !important; transform: none !important; }
+  #s5-pill-label { min-width: 200px; padding: 10px 14px; font-size: 18px; }
+  #s5-prev, #s5-next { width: 38px; height: 36px; }
 
-  #section-6 { padding: 6vh 5vw; }
+  #section-6 { padding: 12vh 5vw; }
   #s6-inner  { grid-template-columns: 1fr; }
   #s6-title  { margin-bottom: 16px; }
   #s6-left   { padding: 0; }
@@ -1834,27 +1842,75 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
 
   #s2-sticky { padding: 8vh 5vw 3vh; }
   #s2-title  { margin-bottom: 12px; }
-  #s2-stack  { width: 92vw; height: auto; aspect-ratio: 790 / 460; }
+  #s2-stack  { width: 92vw; height: 320px; aspect-ratio: 790 / 460; }
   .s2-card   { width: 81%; height: 82%; }
 
   /* Section 4 */
-  #s4-sticky::before { -webkit-mask-image: none; mask-image: none; }
-  #s4-content { padding: 0 5vw; align-items: center; text-align: center; }
+  #section-4  { height: auto !important; }
+  #s4-sticky  {
+    position: relative;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 90px 5vw 40px;
+    gap: 24px;
+    overflow: visible;
+  }
+  #s4-sticky::before { -webkit-mask-image: none; mask-image: none; position: absolute; inset: 0; }
+  #s4-content {
+    position: relative;
+    inset: auto;
+    padding: 0;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    pointer-events: auto;
+  }
   #s4-cta     { width: 100%; min-width: 0; }
+  #s4-popups  {
+    position: relative !important;
+    right: auto !important; top: auto !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
+    height: auto !important;
+  }
+  .s4-popup-card {
+    position: relative !important;
+    left: auto !important; top: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 14px;
+    padding: 14px 20px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .s4-popup-card span { font-size: 16px; }
 
-  /* Section 5 */
-  #s5-sticky { gap: 2vh; }
-  #s5-title  { padding: 0 5vw; text-align: center; }
+  /* Titles — wrap properly, never overflow screen */
+  #hero-title, .headline, .headline.xl,
+  #s1-title, #s2-title, #s4-title, #s5-title, #s6-title {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  /* Section 5 — narrower slides on small mobile */
   #s5-track  { height: 52vw; }
   .s5-slide  { width: 88vw; height: 50vw; }
-  #s5-pill   { bottom: 30px; }
-  #s5-pill-label { min-width: 160px; padding: 9px 12px; font-size: 16px; }
-  #s5-prev, #s5-next { width: 36px; height: 42px; }
+  #s5-pill-label { min-width: 160px; font-size: 16px; }
 
   /* Section 6 */
   #section-6 { padding: 5vh 5vw; min-height: auto; }
   #s6-inner  { grid-template-columns: 1fr; row-gap: 2vh; }
-  #s6-image  { display: none; }
   #s6-title  { margin-bottom: 14px; text-align: center; }
   #s6-right  { align-items: center; width: 100%; }
   #s6-body   { text-align: center; }
@@ -1874,7 +1930,7 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
 /* ── 390px ── mali telefoni */
 @media (max-width: 390px) {
   .s5-slide  { width: 92vw; height: 52vw; }
-  #s5-pill   { flex-direction: column; gap: 6px; width: 90%; bottom: 32px; }
+  #s5-pill   { flex-direction: row; gap: 6px; width: 90%; bottom: 32px; }
   #s5-pill-label { min-width: 0; width: 100%; padding: 8px 12px; }
 
   .cta-common,

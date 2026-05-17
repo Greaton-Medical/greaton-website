@@ -339,19 +339,37 @@
   function splitChars(el, text, accentWords = []) {
     el.innerHTML = "";
     const spans = [];
-    [...text].forEach(ch => {
+    let i = 0;
+    while (i < text.length) {
+      const ch = text[i];
       if (ch === "\n") {
         el.appendChild(document.createElement("br"));
         spans.push(null);
-        return;
+        i++;
+        continue;
       }
-      const sp = document.createElement("span");
-      sp.className = "char";
-      sp.textContent = ch === " " ? "\u00a0" : ch;
-      sp.style.color = "rgba(161,214,239,0)";
-      el.appendChild(sp);
-      spans.push(sp);
-    });
+      if (ch === " ") {
+        // Real space as text node — valid word-wrap break point
+        el.appendChild(document.createTextNode(" "));
+        spans.push(null);
+        i++;
+        continue;
+      }
+      // Collect the whole word into an inline-block wrapper so it never
+      // breaks mid-character, only at the space between words.
+      const wordWrap = document.createElement("span");
+      wordWrap.style.cssText = "display:inline-block;white-space:nowrap;";
+      while (i < text.length && text[i] !== " " && text[i] !== "\n") {
+        const sp = document.createElement("span");
+        sp.className = "char";
+        sp.textContent = text[i];
+        sp.style.color = "rgba(161,214,239,0)";
+        wordWrap.appendChild(sp);
+        spans.push(sp);
+        i++;
+      }
+      el.appendChild(wordWrap);
+    }
     // mark accent ranges by WHOLE WORD only
     accentWords.forEach(word => {
       // Escape special regex chars in the word
@@ -877,16 +895,37 @@
     if (!sec) return;
     const cfg = CONFIG.section4;
 
-    sec.style.height = (window.innerHeight + cfg.scrollRunwayPx) + "px";
     if (cta) cta.textContent = cfg.cta;
 
-    // Paint first state immediately
     const title = document.getElementById("s4-title");
     if (title) {
       splitChars(title, cfg.states[0].headline, cfg.states[0].accent);
       _s4PaintTitle(title);
     }
 
+    if (window.innerWidth <= 640) {
+      sec._s4Mobile = true;
+      sec.style.height = 'auto';
+
+      const container = document.getElementById("s4-popups");
+      if (container) {
+        const seen = new Set();
+        cfg.states.forEach(state => {
+          state.popups.forEach(p => {
+            if (p.type === 'card' && !seen.has(p.text)) {
+              seen.add(p.text);
+              const el = document.createElement("div");
+              el.className = "s4-popup-card";
+              el.innerHTML = `<span>${p.text}</span>`;
+              container.appendChild(el);
+            }
+          });
+        });
+      }
+      return;
+    }
+
+    sec.style.height = (window.innerHeight + cfg.scrollRunwayPx) + "px";
     window.addEventListener("resize", () => {
       sec.style.height = (window.innerHeight + cfg.scrollRunwayPx) + "px";
     }, { passive: true });
@@ -952,7 +991,7 @@
 
   function updateSection4() {
     const sec = document.getElementById("section-4");
-    if (!sec) return;
+    if (!sec || sec._s4Mobile) return;
     const cfg      = CONFIG.section4;
     const secTop   = sec.getBoundingClientRect().top + window.scrollY;
     const scrolled = Math.max(0, window.scrollY - secTop);
@@ -1037,6 +1076,7 @@
     s5ActiveIdx = cfg.activeIdx ?? 0;
 
     function setHeight() {
+      if (window.innerWidth <= 768) { sec.style.height = "auto"; return; }
       sec.style.height = (window.innerHeight + cfg.scrollRunwayPx) + "px";
     }
     setHeight();

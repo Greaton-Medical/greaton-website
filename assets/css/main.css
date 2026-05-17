@@ -1410,7 +1410,7 @@ body.loaded #s1-player { opacity: 1; }
   align-items: center;
   gap: 12px;
   position: absolute;
-  bottom: 64px;
+  bottom: 32px;
 }
 
 #s5-pill-label {
@@ -1638,8 +1638,9 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
   .s2-sg-item {gap: 10px;}
   .s2-sg-value {font-size: 22px!important;}
   .s4-popup-card span {font-size: 18px!important;}
-  .s5-slide { width: 490px; height: 265px; }
   #s4-popups { right: 8%; max-width: 500px; }
+  .s5-slide { width: 490px; height: 265px; }
+  #s5-pill { bottom: 64px;}
   .footer-inner { padding-left: 48px; padding-right: 48px; gap: 6vw; }
 }
 

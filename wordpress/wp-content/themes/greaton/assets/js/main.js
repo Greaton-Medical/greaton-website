@@ -1589,16 +1589,30 @@
   }
 
   function initNavScroll() {
+    const textMap = {
+      'about': '#video-section',
+    };
+
+    function scrollTo(target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+
     document.querySelectorAll('.nav-links a, .mobile-nav-ul li a').forEach(a => {
+      const label = a.textContent.trim().toLowerCase();
+      const mappedId = textMap[label];
+      if (mappedId) {
+        const target = document.querySelector(mappedId);
+        if (target) {
+          a.addEventListener('click', e => { e.preventDefault(); scrollTo(target); });
+          return;
+        }
+      }
       const hash = a.hash;
       if (!hash) return;
       const target = document.querySelector(hash);
       if (!target) return;
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-        history.replaceState(null, '', window.location.pathname + window.location.search);
-      });
+      a.addEventListener('click', e => { e.preventDefault(); scrollTo(target); });
     });
   }
 

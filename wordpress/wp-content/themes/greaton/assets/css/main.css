@@ -1740,11 +1740,23 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
   #s2-panel-wrap { width: 100%; height: auto; min-height: 120px; }
   .s2-bigstats { flex-wrap: wrap; gap: 4vw; }
   .s2-hbar-track { height: 26px; }
+  .s2-hbar-label { font-size: 16px; }
+  .s2-hbar-count { font-size: 16px; }
   .s2-avatar  { width: 52px; height: 52px; border-radius: 12px; }
   #s2-logos   { flex-wrap: wrap; gap: 8px; padding-top: 2vh; }
   .s2-logo-badge { flex: 0 0 calc(50% - 8px); padding: 10px 12px; }
-  .s2-logo-badge img { max-width: 80px; min-height: 32px; }
-
+  .s2-logo-badge img { max-width: 80px; max-height: 32px; }
+  .s2-quote { font-size: 18px; line-height: 22px; margin-bottom: 8px; text-align: center; }
+  .s2-stats-grid { gap: 8px; padding: 0; }
+  .s2-sg-value { font-size: 20px !important; }
+  .s2-sg-item { padding: 8px; }
+  .s2-bigval { font-size: clamp(1.8rem, 7vw, 3rem) !important; }
+  #s2-title  { text-align: center; }
+  #s2-panel-wrap { text-align: center; }
+  .s2-bigstats { justify-content: center; }
+  .s2-col    { align-items: center; text-align: center; }
+  .s2-hbars  { width: 100%; }
+  
   #s4-sticky::before { -webkit-mask-image: none; mask-image: none; }
   #s4-content { padding-left: 5vw; padding-right: 5vw; }
   #s4-cta     { min-width: 0; }
@@ -1773,6 +1785,15 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
   .nav-cta    { display: none; }
   .nav-logo   { font-size: 13px; }
   #menu-toggle { display: flex; }
+
+  /* Scenes — center all on mobile */
+  .scene, .scene.mid-left, .scene.mid-right, .scene.bottom-left, .scene.top-left {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 
   /* Section 1 — static layout, no scroll animation */
   #section-1  { height: auto !important; }
@@ -1816,26 +1837,38 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
   #s2-stack  { width: 92vw; height: auto; aspect-ratio: 790 / 460; }
   .s2-card   { width: 81%; height: 82%; }
 
-  #s4-content { padding-left: 5vw; padding-right: 5vw; }
-  #s4-cta     { width: 100%; }
+  /* Section 4 */
+  #s4-sticky::before { -webkit-mask-image: none; mask-image: none; }
+  #s4-content { padding: 0 5vw; align-items: center; text-align: center; }
+  #s4-cta     { width: 100%; min-width: 0; }
 
+  /* Section 5 */
   #s5-sticky { gap: 2vh; }
-  #s5-title  { padding: 0 5vw; }
+  #s5-title  { padding: 0 5vw; text-align: center; }
+  #s5-track  { height: 52vw; }
   .s5-slide  { width: 88vw; height: 50vw; }
-  #s5-pill-label { min-width: 170px; padding: 9px 12px; }
+  #s5-pill   { bottom: 30px; }
+  #s5-pill-label { min-width: 160px; padding: 9px 12px; font-size: 16px; }
   #s5-prev, #s5-next { width: 36px; height: 42px; }
 
-  #section-6 { padding: 5vh 5vw; }
-  #s6-inner  { grid-template-columns: 1fr; }
+  /* Section 6 */
+  #section-6 { padding: 5vh 5vw; min-height: auto; }
+  #s6-inner  { grid-template-columns: 1fr; row-gap: 2vh; }
   #s6-image  { display: none; }
-  #s6-title  { margin-bottom: 14px; }
+  #s6-title  { margin-bottom: 14px; text-align: center; }
+  #s6-right  { align-items: center; width: 100%; }
+  #s6-body   { text-align: center; }
+  #s6-cta    { width: 100%; }
 
   .cta-common,
   .cta-common-alt { padding: 18px 22px; font-size: 15px; }
 
-  .footer-inner { flex-wrap: wrap; gap: 24px; padding-left: 20px; padding-right: 20px; }
-  .footer-cols  { flex-wrap: wrap; gap: 20px; }
-  .footer-copy  { margin-left: 0; }
+  /* Footer */
+  .footer-inner  { flex-direction: column; align-items: center; text-align: center; gap: 20px; padding: 32px 20px 40px; }
+  .footer-cols   { flex-direction: column; align-items: center; gap: 16px; }
+  .footer-col    { align-items: center; }
+  .footer-social { justify-content: center; }
+  .footer-copy   { margin-left: 0; align-items: center; text-align: center; }
 }
 
 /* ── 390px ── mali telefoni */
@@ -1849,7 +1882,7 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
 
   .footer-col a { font-size: 13px; }
   .footer-copy span:first-child { font-size: 13px; }
-  .footer-copy span:last-child  { font-size: 12px; }
+  .footer-copy span:last-child  { font-size: 12px; max-width: 90%; }
 }
 
 /* Reduced motion */

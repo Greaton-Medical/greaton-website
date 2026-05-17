@@ -1,1 +1,1 @@
-Static site — prepared for WordPress integration.
+Static site for Greaton Medical - prepared for WordPress integration. 

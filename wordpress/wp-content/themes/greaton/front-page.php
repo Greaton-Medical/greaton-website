@@ -34,7 +34,7 @@
     <div id="sticky">
       <video id="vid"
              src="<?php echo get_template_directory_uri(); ?>/assets/media/greaton.mp4"
-             muted playsinline preload="auto"></video>
+             muted playsinline autoplay preload="auto"></video>
       <div id="hero">
         <h2 id="hero-title"></h2>
         <p id="hero-sub"></p>

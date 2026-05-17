@@ -1731,6 +1731,8 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
   .scene.bottom-left { padding-bottom: 12vh; }
   .label { margin-bottom: 4px; }
   #s1-content { padding: 12vh 6vw 0; }
+  #section-1 { height: 100vh!important; }
+  #s1-sticky { height: 100vh; gap: 96px; padding: 96px 5vw 40px; }
 
   #s2-sticky  { padding: 12vh 6vw 4vh; }
   #s2-title   { margin-bottom: 14px; }
@@ -1760,15 +1762,15 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
   .s2-cols    { margin: 0 auto; }
   .s2-hbars  { width: 100%; }
 
-  #s4-sticky  { padding: 96px 5vw 40px; }
+  #s4-sticky  { padding: 96px 5vw 96px; justify-content: center; }
   #s4-sticky::before { -webkit-mask-image: none; mask-image: none; }
   #s4-content { padding-left: 5vw; padding-right: 5vw; }
   #s4-cta     { min-width: 0; }
   #s4-popups  { display: none; }
 
   /* Section 5 — no sticky on tablet/mobile */
-  #section-5  { height: auto !important; }
-  #s5-sticky  { position: relative !important; height: auto !important; gap: 32px; padding: 96px 5vw 40px; }
+  #section-5  { height: 100vh !important; }
+  #s5-sticky  { position: relative !important; height: 100vh !important; gap: 32px; padding: 0 5vw 0px; }
   #s5-title   { padding: 0; text-align: center; }
   #s5-track   { height: 46vw; }
   .s5-slide   { width: 80vw; height: 44vw; }
@@ -1777,7 +1779,7 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
   #s5-pill-label { min-width: 200px; padding: 10px 14px; font-size: 18px; }
   #s5-prev, #s5-next { width: 38px; height: 36px; }
 
-  #section-6 { padding: 12vh 5vw; }
+  #section-6 { padding: 4vh 5vw 16vh;}
   #s6-inner  { grid-template-columns: 1fr; }
   #s6-title  { margin-bottom: 16px; }
   #s6-left   { padding: 0; }
@@ -1910,8 +1912,8 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
   #s5-pill-label { min-width: 160px; font-size: 16px; }
 
   /* Section 6 */
-  #section-6 { padding: 5vh 5vw; min-height: auto; }
-  #s6-inner  { grid-template-columns: 1fr; row-gap: 2vh; }
+  #section-6 { min-height: auto; }
+  #s6-inner  { grid-template-columns: 1fr; row-gap: 0vh; align-items: center; }
   #s6-title  { margin-bottom: 14px; text-align: center; }
   #s6-right  { align-items: center; width: 100%; }
   #s6-body   { text-align: center; }

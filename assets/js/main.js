@@ -1375,6 +1375,9 @@
           vid.paused ? vid.play().catch(() => {}) : vid.pause();
         });
 
+        // Autoplay on mobile
+        if (vid) vid.play().catch(() => {});
+
         // Pause when scrolled out of view
         new IntersectionObserver(entries => {
           entries.forEach(e => {
@@ -1692,6 +1695,8 @@
     function onVideoReady() {
       smoothTime = 0;
       try { dom.video.currentTime = 0; } catch (_) {}
+      // Ensure video has frames decoded on mobile (autoplay triggers loading)
+      dom.video.play().catch(() => {});
     }
     if (dom.video.readyState >= 2) onVideoReady();
     else {

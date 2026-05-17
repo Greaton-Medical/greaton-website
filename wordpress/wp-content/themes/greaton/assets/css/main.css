@@ -1744,12 +1744,7 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
   #s2-logos   { flex-wrap: wrap; gap: 8px; padding-top: 2vh; }
   .s2-logo-badge { flex: 0 0 calc(50% - 8px); padding: 10px 12px; }
   .s2-logo-badge img { max-width: 80px; min-height: 32px; }
-  .s2-quote {
-    font-size: 18px;
-    line-height: 22px;
-    color: var(--fg-light);
-    margin-bottom: 16px;
-}
+
   #s4-sticky::before { -webkit-mask-image: none; mask-image: none; }
   #s4-content { padding-left: 5vw; padding-right: 5vw; }
   #s4-cta     { min-width: 0; }

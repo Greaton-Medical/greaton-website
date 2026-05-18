@@ -1189,20 +1189,6 @@ body.loaded #s1-player { opacity: 1; }
   background: transparent;
 }
 
-/* Left frosted-glass panel */
-#s4-sticky::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(237, 244, 252, 0.72);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  -webkit-mask-image: linear-gradient(to right, black 40%, transparent 56%);
-  mask-image: linear-gradient(to right, black 40%, transparent 56%);
-  z-index: 1;
-  pointer-events: none;
-}
-
 #s4-content {
   position: absolute;
   inset: 0;
@@ -1762,15 +1748,14 @@ nav[data-theme="dark"] #menu-toggle span { background: var(--fg-dim); }
   .s2-cols    { margin: 0 auto; }
   .s2-hbars  { width: 100%; }
 
-  #s4-sticky  { padding: 96px 5vw 96px; justify-content: center; }
-  #s4-sticky::before { -webkit-mask-image: none; mask-image: none; }
+  #s4-sticky  { padding: 120px 5vw 56px; justify-content: center; }
   #s4-content { padding-left: 5vw; padding-right: 5vw; }
   #s4-cta     { min-width: 0; }
   #s4-popups  { display: none; }
 
   /* Section 5 — no sticky on tablet/mobile */
   #section-5  { height: 100vh !important; }
-  #s5-sticky  { position: relative !important; height: 100vh !important; gap: 32px; padding: 0 5vw 0px; }
+  #s5-sticky  { position: relative !important; height: 90vh !important; gap: 32px; padding: 0 5vw 0px; }
   #s5-title   { padding: 0; text-align: center; }
   #s5-track   { height: 46vw; }
   .s5-slide   { width: 80vw; height: 44vw; }

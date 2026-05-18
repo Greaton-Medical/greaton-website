@@ -17,12 +17,12 @@
     const _sticky = document.getElementById('sticky');
     const _vid    = document.getElementById('vid');
     if (_sticky) {
+      _sticky.style.overflow        = 'visible';
       _sticky.style.webkitTransform = 'none';
       _sticky.style.transform       = 'none';
-      _sticky.style.background      = 'transparent';
     }
     if (_vid) {
-      _vid.style.cssText += ';position:fixed!important;top:0;left:0;width:100%;height:100%;z-index:0;object-fit:cover;opacity:1;-webkit-transform:none;transform:none;';
+      _vid.style.cssText += ';position:absolute!important;top:0;left:0;width:100%;height:100%;z-index:0;object-fit:cover;opacity:1;-webkit-transform:none;transform:none;';
     }
   }
 
@@ -730,7 +730,7 @@
     if (Math.abs(smoothTime - target) < 0.001) smoothTime = target;
     smoothTime  = clamp(smoothTime, 0, duration);
 
-    if (dom.video.readyState >= 2) {
+    if (!_isIOS && dom.video.readyState >= 2) {
       try { dom.video.currentTime = smoothTime; } catch (_) {}
     }
 
@@ -1650,7 +1650,9 @@
 
   function initNavScroll() {
     const textMap = {
-      'about': '#video-section',
+      'about':          '#video-section',
+      'results':        '#section-2',
+      'greaton system': '#section-1',
     };
 
     function scrollTo(target) {

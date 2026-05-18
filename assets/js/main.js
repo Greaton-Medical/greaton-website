@@ -9,6 +9,23 @@
 (() => {
   "use strict";
 
+  // iOS: video inside position:sticky + overflow:hidden goes black and won't autoplay.
+  // Must apply before the browser attempts autoplay (footer script runs after DOM parse).
+  const _isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                 ('ontouchstart' in window && /Macintosh/.test(navigator.userAgent));
+  if (_isIOS) {
+    const _sticky = document.getElementById('sticky');
+    const _vid    = document.getElementById('vid');
+    if (_sticky) {
+      _sticky.style.webkitTransform = 'none';
+      _sticky.style.transform       = 'none';
+      _sticky.style.background      = 'transparent';
+    }
+    if (_vid) {
+      _vid.style.cssText += ';position:fixed!important;top:0;left:0;width:100%;height:100%;z-index:0;object-fit:cover;opacity:1;-webkit-transform:none;transform:none;';
+    }
+  }
+
   // Pull overrides from WordPress (wp_localize_script) or fall back to static paths
   const WP = (typeof GREATON_CONFIG !== 'undefined') ? GREATON_CONFIG : null;
   const tdir = WP ? WP.templateUri : '';
@@ -1672,6 +1689,12 @@
   }
 
   function boot() {
+    if (_isIOS && dom.video && dom.section) {
+      new IntersectionObserver(entries => {
+        dom.video.style.visibility = entries[0].isIntersecting ? '' : 'hidden';
+      }, { threshold: 0, rootMargin: '100% 0px' }).observe(dom.section);
+    }
+
     buildSceneElements();
     initSection2();
     initSection1();
@@ -1694,11 +1717,14 @@
 
     function onVideoReady() {
       smoothTime = 0;
-      try { dom.video.currentTime = 0; } catch (_) {}
-      // Ensure video has frames decoded on mobile (autoplay triggers loading)
-      dom.video.play().catch(() => {});
+      if (_isIOS) {
+        dom.video.play().catch(() => {});
+      } else {
+        try { dom.video.currentTime = 0; } catch (_) {}
+        dom.video.pause();
+      }
     }
-    if (dom.video.readyState >= 2) onVideoReady();
+    if (dom.video.readyState >= (_isIOS ? 1 : 2)) onVideoReady();
     else {
       dom.video.addEventListener("loadedmetadata", onVideoReady, { once: true });
       dom.video.addEventListener("canplay",        onVideoReady, { once: true });

@@ -31,6 +31,16 @@
   const tdir = WP ? WP.templateUri : '';
   const wpPath = (rel) => tdir ? tdir + '/' + rel : rel;
 
+  const S2_COLORS = ["#7ADAEF", "#9DA2FF", "#a78bfa", "#5aabff"];
+  const wpStats = (WP?.section2?.stats ?? [
+    { value: "$91,750", label: "Revenue Growth" },
+    { value: "6.1x",   label: "ROI" },
+  ]).map((s, i) => ({ ...s, lineColor: S2_COLORS[i % S2_COLORS.length] }));
+  const wpCols = (WP?.section2?.cols ?? [
+    { head: "Paid Ads", stat: "123 booked", sub: "$48 CPA" },
+    { head: "Organic",  stat: "147 booked", sub: "21% growth in 3 months" },
+  ]).map((c, i) => ({ ...c, lineColor: S2_COLORS[i % S2_COLORS.length] }));
+
   // ============================================================
   // CONFIG — single source of truth
   // ============================================================
@@ -71,7 +81,7 @@
         headline: WP?.scenes?.calendar ?? "Your calendar fills.",
         accent: ["calendar"], // TODO: confirm — screenshot unclear if whole word or suffix is blue
         fadeStrength: 0.4,
-        videoIn: 1.0, videoPeak: 1.5, videoOut: 2.2, dwellPx: 560,
+        videoIn: 1.0, videoPeak: 1.5, videoOut: 2.2, dwellPx: 515,
       },
       {
         id: "consultations",
@@ -80,7 +90,7 @@
         headline: WP?.scenes?.consultations ?? "Consultations\nevery month.",
         accent: [],
         fadeStrength: 0.4,
-        videoIn: 2.2, videoPeak: 3.2, videoOut: 3.5, dwellPx: 560,
+        videoIn: 2.2, videoPeak: 3.2, videoOut: 3.5, dwellPx: 515,
       },
       {
         id: "vanity",
@@ -89,7 +99,7 @@
         headline: WP?.scenes?.vanity ?? "You know what's\nworking.",
         accent: ["what's"], // TODO: confirm accent
         fadeStrength: 0.4,
-        videoIn: 3.5, videoPeak: 5.2, videoOut: 5.80, dwellPx: 560,
+        videoIn: 3.5, videoPeak: 5.2, videoOut: 5.80, dwellPx: 515,
       },
       {
         id: "wasted",
@@ -98,7 +108,7 @@
         headline: WP?.scenes?.wasted ?? "Every dollar tracked.\nEvery patient traced.",
         accent: ["patient"], // TODO: confirm accent
         fadeStrength: 0.45,
-        videoIn: 5.80, videoPeak: 6.7, videoOut: 7.20, dwellPx: 560,
+        videoIn: 5.80, videoPeak: 6.7, videoOut: 7.20, dwellPx: 515,
       },
       {
         id: "final",
@@ -108,15 +118,15 @@
         lines: (WP?.scenes?.final_lines ?? "One system.|One team.|You focus on patients.").split('|'),
         accent: ["system", "team", "focus"],
         fadeStrength: 0,
-        videoIn: 7.20, videoPeak: 9.30, videoOut: 9.50, dwellPx: 840,
+        videoIn: 7.20, videoPeak: 9.30, videoOut: 9.50, dwellPx: 775,
       },
     ],
 
     // How much page scroll = 1 second of video for the ramp/exit parts
-    scrollPxPerSec: 320,
+    scrollPxPerSec: 295,
 
     // Pre-hero scroll padding (lets the hero breathe before scrubbing starts)
-    heroLeadInPx: 1400,
+    heroLeadInPx: 920,
 
     // Smoothing for scroll → video time (lower = smoother but laggier)
     scrubLerp: 0.028,
@@ -125,7 +135,7 @@
     section4: {
       cta:     WP?.section4?.cta     ?? "The Greaton System",
       cta_url: WP?.section4?.cta_url ?? '#',
-      scrollRunwayPx: 4800,
+      scrollRunwayPx: 3310,
       states: [
         {
           headline: WP?.section4?.headline_main ?? "One system.\nEverything handled.",
@@ -136,21 +146,21 @@
           headline: WP?.section4?.headline_main ?? "One system.\nEverything handled.",
           accent: ["system", "handled"],
           popups: [
-            { type: "icon", src: wpPath("assets/icons/ads.png"),                                                            x: 0, y: 0 },
-            { type: "card", src: wpPath("assets/icons/ads.png"),    text: WP?.section4?.card1 ?? "Ads that bring patients in.", x: 40, y: 10 },
+            { type: "icon", src: wpPath("assets/icons/ads.png"),                                                            x: 0, y: 10 },
+            { type: "card", src: wpPath("assets/icons/ads.png"),    text: WP?.section4?.card1 ?? "Ads that bring patients in.", x: 36, y: 18 },
             { type: "icon", src: wpPath("assets/icons/search.png"),                                                         x: 30, y: 48 },
-            { type: "card", src: wpPath("assets/icons/search.png"), text: WP?.section4?.card2 ?? "SEO that compounds.",        x: 70, y: 60 },
+            { type: "card", src: wpPath("assets/icons/search.png"), text: WP?.section4?.card2 ?? "SEO that compounds.",        x: 68, y: 58 },
           ],
         },
         {
           headline: WP?.section4?.headline_main ?? "One system.\nEverything handled.",
           accent: ["system", "handled"],
           popups: [
-            { type: "icon", src: wpPath("assets/icons/document.png"),                                                                       x: -10, y: -15 },
-            { type: "card", src: wpPath("assets/icons/document.png"), text: WP?.section4?.card3 ?? "A sales team that books consultations.", x: 30,  y: -6  },
-            { type: "icon", src: wpPath("assets/icons/growth.png"),                                                                         x: 16,  y: 28  },
-            { type: "card", src: wpPath("assets/icons/growth.png"),   text: WP?.section4?.card4 ?? "Tracking that shows what's working.",   x: 58,  y: 36  },
-            { type: "icon", src: wpPath("assets/icons/ads.png"),      x: 58, y: 74 },
+            { type: "icon", src: wpPath("assets/icons/document.png"),                                                                       x: -10, y: -4 },
+            { type: "card", src: wpPath("assets/icons/document.png"), text: WP?.section4?.card3 ?? "A sales team that books consultations.", x: 24,  y: 4  },
+            { type: "icon", src: wpPath("assets/icons/growth.png"),                                                                         x: 16,  y: 36  },
+            { type: "card", src: wpPath("assets/icons/growth.png"),   text: WP?.section4?.card4 ?? "Tracking that shows what's working.",   x: 50,  y: 44  },
+            { type: "icon", src: wpPath("assets/icons/ads.png"),      x: 52, y: 74 },
             { type: "icon", src: wpPath("assets/icons/search.png"),   x: 16, y: 74 },
           ],
         },
@@ -158,12 +168,12 @@
           headline: WP?.section4?.headline_final ?? "Everything connected.\nNothing wasted.",
           accent: ["connected", "wasted"],
           popups: [
-            { type: "bracket", src: wpPath("assets/icons/greaton-left.png"),  x: 0,  y: 0  },
-            { type: "bracket", src: wpPath("assets/icons/greaton-right.png"), x: 84, y: 86 },
-            { type: "icon",    src: wpPath("assets/icons/document.png"),      x: 10, y: 12 },
-            { type: "icon",    src: wpPath("assets/icons/growth.png"),        x: 56, y: 12 },
-            { type: "icon",    src: wpPath("assets/icons/ads.png"),           x: 10, y: 60 },
-            { type: "icon",    src: wpPath("assets/icons/search.png"),        x: 56, y: 60 },
+            { type: "bracket", src: wpPath("assets/icons/greaton-left.png"),  x: 6,  y: 10 },
+            { type: "bracket", src: wpPath("assets/icons/greaton-right.png"), x: 80, y: 78 },
+            { type: "icon",    src: wpPath("assets/icons/document.png"),      x: 16, y: 20 },
+            { type: "icon",    src: wpPath("assets/icons/growth.png"),        x: 51, y: 20 },
+            { type: "icon",    src: wpPath("assets/icons/ads.png"),           x: 16, y: 54 },
+            { type: "icon",    src: wpPath("assets/icons/search.png"),        x: 51, y: 54 },
           ],
         },
       ],
@@ -182,7 +192,7 @@
         { label: "Orthodontics",          src: wpPath("assets/media/orthodontics.mp4") },
         { label: "Ophthalmology",         src: wpPath("assets/media/opthalmology.mp4") },
       ],
-      scrollRunwayPx: 2400,
+      scrollRunwayPx: 1655,
     },
 
     // ── Section 6 — revenue bleeding ────────────────────────────
@@ -195,8 +205,8 @@
 
     // ── Section 2 — results / charts (scroll-pinned card stack) ──
     section2: {
-      headline: "Month 3 results.\nOne practice.",
-      scrollRunwayPx: 4800,
+      headline: WP?.section2?.headline ?? "Month 3 results.\nOne practice.",
+      scrollRunwayPx: 3310,
       cards: [
         {
           type:       "chart",
@@ -211,34 +221,23 @@
           ],
           // right panel
           panel: "stats",
-          stats: [
-            { value: "$91,750", label: "Revenue Growth", lineColor: "#7ADAEF" },
-            { value: "6.1x",   label: "ROI",            lineColor: "#9DA2FF" },
-          ],
+          stats: wpStats,
         },
         {
           type:   "hbars",
           cardBg: "#ede9f8",
-          rows: [
-            { label: "Paid Ads", pct: 75, count: "123 Booked", color: "#5aabff" },
-            { label: "Organic",  pct: 84, count: "147 Booked", color: "#a78bfa" },
-          ],
+          rows: wpCols.map((c, i) => ({ label: c.head, pct: 80, count: c.stat, color: S2_COLORS[i % S2_COLORS.length] })),
           // right panel
           panel: "breakdown",
-          cols: [
-            { head: "Paid Ads", stat: "123 booked", sub: "$48 CPA",                lineColor: "#7ADAEF" },
-            { head: "Organic",  stat: "147 booked", sub: "21% growth in 3 months", lineColor: "#9DA2FF" },
-          ],
+          cols: wpCols,
         },
         {
           type:     "testimonial-card",
           cardBg:   "#e9f0fb",
           cardLogo: WP?.section2?.testimonial?.cardLogo ?? wpPath("assets/logos/sweetgrassplasticsurgery.png"),
           cardStats: [
-            { label: "Revenue Growth", value: "$91,750", color: "#7ADAEF" },
-            { label: "ROI",            value: "6.1x",    color: "#9DA2FF" },
-            { label: "Paid Ads",       value: "123",     color: "#7ADAEF", suffix: "booked", sub: "$48 CPA" },
-            { label: "Organic",        value: "147",     color: "#9DA2FF", suffix: "booked", sub: "21% growth in 3 months" },
+            ...wpStats.map((s, i) => ({ label: s.label, value: s.value, color: S2_COLORS[i % S2_COLORS.length] })),
+            ...wpCols.map((c, i)  => ({ label: c.head, value: c.stat.split(' ')[0], color: S2_COLORS[i % S2_COLORS.length], suffix: "booked", sub: c.sub })),
           ],
           // right panel
           panel: "testimonial",
@@ -266,8 +265,8 @@
       cta:          WP?.section1?.cta   ?? "Request Marketing Review",
       fadeStrength: 0.5,
       video:        WP?.section1?.video ?? wpPath("assets/media/hero-video.mp4"),
-      scrollRunwayPx: 2800,
-      dwellPx:        1200,
+      scrollRunwayPx: 1930,
+      dwellPx:        830,
     },
 
     // Per-character animation timings
@@ -945,6 +944,7 @@
     sec.style.height = (window.innerHeight + cfg.scrollRunwayPx) + "px";
     window.addEventListener("resize", () => {
       sec.style.height = (window.innerHeight + cfg.scrollRunwayPx) + "px";
+      _s4StateIdx = -1;
     }, { passive: true });
   }
 
@@ -952,23 +952,39 @@
     title.querySelectorAll(".char").forEach(sp => { sp.style.color = "rgba(13,13,20,1)"; });
   }
 
+  function _s4Sizes() {
+    const vw = window.innerWidth;
+    if (vw <= 1024) return { icon: 115, img: 37, radius: 12, pad: 11, bracket: 47, font: 15 };
+    if (vw <= 1280) return { icon: 141, img: 45, radius: 14, pad: 13, bracket: 57, font: 18 };
+    if (vw <= 1560) return { icon: 160, img: 51, radius: 16, pad: 14, bracket: 65, font: 20 };
+    return                  { icon: 176, img: 56, radius: 18, pad: 16, bracket: 72, font: 22 };
+  }
+
   function _s4BuildPopup(p, delay) {
     const el = document.createElement("div");
+    const sz = _s4Sizes();
     el.style.cssText = `position:absolute; left:${p.x}%; top:${p.y}%; opacity:0; transform:translateY(10px); transition:opacity 0.5s var(--ease-out) ${delay}ms, transform 0.55s var(--ease-out) ${delay}ms; pointer-events:none;`;
 
     if (p.type === "bracket") {
       el.className = "s4-popup-bracket";
+      el.style.width = sz.bracket + "px";
+      el.style.height = sz.bracket + "px";
       const img = document.createElement("img");
       img.src = p.src; img.alt = "";
       el.appendChild(img);
     } else if (p.type === "icon") {
       el.className = "s4-popup-icon";
+      el.style.width = sz.icon + "px";
+      el.style.height = sz.icon + "px";
+      el.style.borderRadius = sz.radius + "px";
+      el.style.padding = sz.pad + "px";
       const img = document.createElement("img");
+      img.style.width = sz.img + "px";
       img.src = p.src; img.alt = "";
       el.appendChild(img);
     } else {
       el.className = "s4-popup-card";
-      el.innerHTML = `<span>${p.text}</span>`;
+      el.innerHTML = `<span style="font-size:${sz.font}px">${p.text}</span>`;
     }
     return el;
   }
@@ -1013,9 +1029,7 @@
     const secTop   = sec.getBoundingClientRect().top + window.scrollY;
     const scrolled = Math.max(0, window.scrollY - secTop);
     const total    = cfg.states.length;
-    // Lead-in: first slot is reserved so state 0 stays active on entry
-    const leadIn   = cfg.scrollRunwayPx / (total + 1);
-    const progress = clamp(Math.max(0, scrolled - leadIn) / (cfg.scrollRunwayPx - leadIn), 0, 1);
+    const progress = clamp(scrolled / cfg.scrollRunwayPx, 0, 1);
     const stateIdx = Math.min(Math.floor(progress * total), total - 1);
 
     if (stateIdx === _s4StateIdx || _s4Exiting) return;
@@ -1329,9 +1343,7 @@
     const secTop   = sec.getBoundingClientRect().top + window.scrollY;
     const scrolled = Math.max(0, window.scrollY - secTop);
     const total    = cfg.cards.length;
-    // Lead-in: first slot is reserved so card 0 stays active on entry
-    const leadIn   = cfg.scrollRunwayPx / (total + 1);
-    const progress = clamp(Math.max(0, scrolled - leadIn) / (cfg.scrollRunwayPx - leadIn), 0, 1);
+    const progress = clamp(scrolled / cfg.scrollRunwayPx, 0, 1);
     const activeIdx = Math.min(Math.floor(progress * total), total - 1);
 
     if (activeIdx === _s2ActiveIdx) return;
@@ -1650,9 +1662,10 @@
 
   function initNavScroll() {
     const textMap = {
-      'about':          '#video-section',
-      'results':        '#section-2',
-      'greaton system': '#section-1',
+      'about':               '#video-section',
+      'results':             '#section-2',
+      'the greaton system':  '#section-4',
+      'greaton system':      '#section-4',
     };
 
     function scrollTo(target) {
@@ -1686,7 +1699,7 @@
     ].forEach(({ id, url }) => {
       if (!url || url === '#') return;
       const btn = document.getElementById(id);
-      if (btn) btn.addEventListener('click', () => window.location.href = url);
+      if (btn) btn.addEventListener('click', () => window.open(url, '_blank', 'noopener,noreferrer'));
     });
   }
 

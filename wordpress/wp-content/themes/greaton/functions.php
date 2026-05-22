@@ -1,5 +1,17 @@
 <?php
 
+// ── Disable Gutenberg for all pages so meta box form saves work correctly ─────
+add_filter('use_block_editor_for_post_type', function($use_block_editor, $post_type) {
+    if ($post_type === 'page') return false;
+    return $use_block_editor;
+}, 10, 2);
+
+// Normalize \r\n → \n so JS splitChars handles newlines correctly
+function grt_nl($pid, $key, $default = '') {
+    $val = get_post_meta($pid, $key, true);
+    return $val ? str_replace("\r\n", "\n", str_replace("\r", "\n", $val)) : $default;
+}
+
 // ── Nav menus + widgets ───────────────────────────────────────────────────────
 add_action('after_setup_theme', function() {
     register_nav_menus([
@@ -39,33 +51,41 @@ function greaton_assets() {
             'main' => get_post_meta($pid, 'grt_main_video', true) ?: $tdir . '/assets/media/greaton.mp4',
         ],
         'section1' => [
-            'title'   => get_post_meta($pid, 'grt_s1_title',   true) ?: "Never wonder where\n the next patient\n comes from.",
-            'sub'     => get_post_meta($pid, 'grt_s1_sub',     true) ?: '20+ booked consultations. Every month. Done for you.',
+            'title'   => grt_nl($pid, 'grt_s1_title',   "Never wonder where\n the next patient\n comes from."),
+            'sub'     => grt_nl($pid, 'grt_s1_sub',     '20+ booked consultations. Every month. Done for you.'),
             'cta'     => get_post_meta($pid, 'grt_s1_cta',     true) ?: 'Request Marketing Review',
             'cta_url' => get_post_meta($pid, 'grt_s1_cta_url', true) ?: '#',
             'video'   => get_post_meta($pid, 'grt_s1_video',   true) ?: $tdir . '/assets/media/hero-video.mp4',
         ],
         'hero' => [
-            'title' => get_post_meta($pid, 'grt_hero_title', true) ?: 'This is what changes.',
-            'sub'   => get_post_meta($pid, 'grt_hero_sub',   true) ?: "You're spending on marketing. You're not sure what it brings back.",
+            'title' => grt_nl($pid, 'grt_hero_title', 'This is what changes.'),
+            'sub'   => grt_nl($pid, 'grt_hero_sub',   "You're spending on marketing. You're not sure what it brings back."),
         ],
         'section2' => [
-            'headline'    => get_post_meta($pid, 'grt_s2_headline',  true) ?: "Month 3 results.\nOne practice.",
+            'headline'    => grt_nl($pid, 'grt_s2_headline', "Month 3 results.\nOne practice."),
             'testimonial' => greaton_s2_testimonial($pid, $tdir),
             'logos'       => greaton_s2_logos($pid, $tdir),
+            'stats' => [
+                ['value' => get_post_meta($pid, 'grt_s2_stat1_value', true) ?: '$91,750', 'label' => get_post_meta($pid, 'grt_s2_stat1_label', true) ?: 'Revenue Growth'],
+                ['value' => get_post_meta($pid, 'grt_s2_stat2_value', true) ?: '6.1x',   'label' => get_post_meta($pid, 'grt_s2_stat2_label', true) ?: 'ROI'],
+            ],
+            'cols' => [
+                ['head' => get_post_meta($pid, 'grt_s2_col1_head', true) ?: 'Paid Ads', 'stat' => get_post_meta($pid, 'grt_s2_col1_stat', true) ?: '123 booked', 'sub' => get_post_meta($pid, 'grt_s2_col1_sub', true) ?: '$48 CPA'],
+                ['head' => get_post_meta($pid, 'grt_s2_col2_head', true) ?: 'Organic',  'stat' => get_post_meta($pid, 'grt_s2_col2_stat', true) ?: '147 booked', 'sub' => get_post_meta($pid, 'grt_s2_col2_sub', true) ?: '21% growth in 3 months'],
+            ],
         ],
         'section4' => [
             'cta'            => get_post_meta($pid, 'grt_s4_cta',            true) ?: 'The Greaton System',
             'cta_url'        => get_post_meta($pid, 'grt_s4_cta_url',        true) ?: '#',
-            'headline_main'  => get_post_meta($pid, 'grt_s4_headline_main',  true) ?: "One system.\nEverything handled.",
-            'headline_final' => get_post_meta($pid, 'grt_s4_headline_final', true) ?: "Everything connected.\nNothing wasted.",
-            'card1'          => get_post_meta($pid, 'grt_s4_card1',          true) ?: 'Ads that bring patients in.',
-            'card2'          => get_post_meta($pid, 'grt_s4_card2',          true) ?: 'SEO that compounds.',
-            'card3'          => get_post_meta($pid, 'grt_s4_card3',          true) ?: 'A sales team that books consultations.',
-            'card4'          => get_post_meta($pid, 'grt_s4_card4',          true) ?: "Tracking that shows what's working.",
+            'headline_main'  => grt_nl($pid, 'grt_s4_headline_main',  "One system.\nEverything handled."),
+            'headline_final' => grt_nl($pid, 'grt_s4_headline_final', "Everything connected.\nNothing wasted."),
+            'card1'          => get_post_meta($pid, 'grt_s4_card1', true) ?: 'Ads that bring patients in.',
+            'card2'          => get_post_meta($pid, 'grt_s4_card2', true) ?: 'SEO that compounds.',
+            'card3'          => get_post_meta($pid, 'grt_s4_card3', true) ?: 'A sales team that books consultations.',
+            'card4'          => get_post_meta($pid, 'grt_s4_card4', true) ?: "Tracking that shows what's working.",
         ],
         'section5' => [
-            'headline' => get_post_meta($pid, 'grt_s5_headline', true) ?: "Your calendar fills with patients\n who chose you.",
+            'headline' => grt_nl($pid, 'grt_s5_headline', "Your calendar fills with patients\n who chose you."),
             'slides'   => greaton_s5_slides($pid, $tdir),
         ],
         'nav_cta' => [
@@ -73,18 +93,18 @@ function greaton_assets() {
             'url'  => get_post_meta($pid, 'grt_nav_cta_url',  true) ?: '#',
         ],
         'section6' => [
-            'headline' => get_post_meta($pid, 'grt_s6_headline', true) ?: "See where your\nrevenue is bleeding.",
-            'body'     => get_post_meta($pid, 'grt_s6_body',     true) ?: '20 minutes. We learn your goals and numbers first. Then you get a marketing review built around your practice. Not a template.',
-            'cta'      => get_post_meta($pid, 'grt_s6_cta',      true) ?: 'Request Marketing Review',
-            'cta_url'  => get_post_meta($pid, 'grt_s6_cta_url',  true) ?: '#',
-            'image'    => get_post_meta($pid, 'grt_s6_image',    true) ?: $tdir . '/assets/images/doctor-last-section.webp',
+            'headline' => grt_nl($pid, 'grt_s6_headline', "See where your\nrevenue is bleeding."),
+            'body'     => grt_nl($pid, 'grt_s6_body',     '20 minutes. We learn your goals and numbers first. Then you get a marketing review built around your practice. Not a template.'),
+            'cta'      => get_post_meta($pid, 'grt_s6_cta',     true) ?: 'Request Marketing Review',
+            'cta_url'  => get_post_meta($pid, 'grt_s6_cta_url', true) ?: '#',
+            'image'    => get_post_meta($pid, 'grt_s6_image',   true) ?: $tdir . '/assets/images/doctor-last-section.webp',
         ],
         'scenes' => [
-            'calendar'      => get_post_meta($pid, 'grt_scene_calendar',      true) ?: 'Your calendar fills.',
-            'consultations' => get_post_meta($pid, 'grt_scene_consultations',  true) ?: "Consultations\nevery month.",
-            'vanity'        => get_post_meta($pid, 'grt_scene_vanity',         true) ?: "You know what's\nworking.",
-            'wasted'        => get_post_meta($pid, 'grt_scene_wasted',         true) ?: "Every dollar tracked.\nEvery patient traced.",
-            'final_lines'   => get_post_meta($pid, 'grt_scene_final',          true) ?: "One system.|One team.|You focus on patients.",
+            'calendar'      => grt_nl($pid, 'grt_scene_calendar',     'Your calendar fills.'),
+            'consultations' => grt_nl($pid, 'grt_scene_consultations', "Consultations\nevery month."),
+            'vanity'        => grt_nl($pid, 'grt_scene_vanity',        "You know what's\nworking."),
+            'wasted'        => grt_nl($pid, 'grt_scene_wasted',        "Every dollar tracked.\nEvery patient traced."),
+            'final_lines'   => grt_nl($pid, 'grt_scene_final',         "One system.|One team.|You focus on patients."),
         ],
     ]);
 }
@@ -131,11 +151,12 @@ function greaton_s2_logos($pid, $tdir) {
     return $saved ?: $defaults;
 }
 
-// ── Meta boxes ────────────────────────────────────────────────────────────────
-function greaton_add_meta_boxes() {
-    add_meta_box('grt-content', 'Greaton Content', 'grt_box_tabs', ['page'], 'normal', 'high');
-}
-add_action('add_meta_boxes', 'greaton_add_meta_boxes');
+// ── Meta boxes (homepage only) ────────────────────────────────────────────────
+add_action('add_meta_boxes_page', function($post) {
+    if ((int) get_option('page_on_front') === $post->ID) {
+        add_meta_box('grt-content', 'Greaton Content', 'grt_box_tabs', 'page', 'normal', 'high');
+    }
+});
 
 // ── Save meta ─────────────────────────────────────────────────────────────────
 function greaton_save_meta($post_id) {
@@ -147,6 +168,9 @@ function greaton_save_meta($post_id) {
         'grt_s1_title', 'grt_s1_sub', 'grt_s1_cta',
         'grt_hero_title', 'grt_hero_sub',
         'grt_s2_headline', 'grt_s2_quote', 'grt_s2_author', 'grt_s2_role',
+        'grt_s2_stat1_value', 'grt_s2_stat1_label', 'grt_s2_stat2_value', 'grt_s2_stat2_label',
+        'grt_s2_col1_head', 'grt_s2_col1_stat', 'grt_s2_col1_sub',
+        'grt_s2_col2_head', 'grt_s2_col2_stat', 'grt_s2_col2_sub',
         'grt_nav_cta_text',
         'grt_s4_cta', 'grt_s4_headline_main', 'grt_s4_headline_final',
         'grt_s4_card1', 'grt_s4_card2', 'grt_s4_card3', 'grt_s4_card4',
@@ -201,6 +225,7 @@ function greaton_save_meta($post_id) {
             update_post_meta($post_id, 'grt_s2_logos', $clean);
         }
     }
+
 }
 add_action('save_post', 'greaton_save_meta');
 
@@ -317,7 +342,26 @@ function grt_box_videos($post) {
 }
 
 function grt_box_section2($post) {
-    grt_text($post->ID,  'grt_s2_headline',  'Headline', 'textarea');
+    grt_text($post->ID, 'grt_s2_headline', 'Headline', 'textarea');
+
+    echo "<hr style='margin:12px 0'><strong>Stats</strong> <span style='color:#666;font-weight:normal'>(card 1 — right panel)</span>";
+    echo "<div style='display:grid;grid-template-columns:1fr 1fr;gap:0 16px'>";
+    grt_text($post->ID, 'grt_s2_stat1_value', 'Stat 1 — Value (e.g. $91,750)');
+    grt_text($post->ID, 'grt_s2_stat1_label', 'Stat 1 — Label (e.g. Revenue Growth)');
+    grt_text($post->ID, 'grt_s2_stat2_value', 'Stat 2 — Value (e.g. 6.1x)');
+    grt_text($post->ID, 'grt_s2_stat2_label', 'Stat 2 — Label (e.g. ROI)');
+    echo "</div>";
+
+    echo "<hr style='margin:12px 0'><strong>Breakdown</strong> <span style='color:#666;font-weight:normal'>(card 2 — right panel, stat format: <em>123 booked</em>)</span>";
+    echo "<div style='display:grid;grid-template-columns:1fr 1fr;gap:0 16px'>";
+    grt_text($post->ID, 'grt_s2_col1_head', 'Col 1 — Heading (e.g. Paid Ads)');
+    grt_text($post->ID, 'grt_s2_col2_head', 'Col 2 — Heading (e.g. Organic)');
+    grt_text($post->ID, 'grt_s2_col1_stat', 'Col 1 — Stat (e.g. 123 booked)');
+    grt_text($post->ID, 'grt_s2_col2_stat', 'Col 2 — Stat (e.g. 147 booked)');
+    grt_text($post->ID, 'grt_s2_col1_sub',  'Col 1 — Sub (e.g. $48 CPA)');
+    grt_text($post->ID, 'grt_s2_col2_sub',  'Col 2 — Sub (e.g. 21% growth in 3 months)');
+    echo "</div>";
+
     echo "<hr style='margin:12px 0'><strong>Testimonial</strong>";
     grt_media($post->ID, 'grt_s2_card_logo', 'Client logo', 'image');
     grt_text($post->ID,  'grt_s2_quote',     'Quote', 'textarea');

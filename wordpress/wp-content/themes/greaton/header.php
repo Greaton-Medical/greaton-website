@@ -30,7 +30,7 @@
       'theme_location' => 'main-nav',
       'container'      => false,
       'menu_class'     => 'nav-links',
-      'items_wrap'     => '<ul class="%2$s">%3$s</ul>',
+      'items_wrap'     => '<ul class="%2$s">%3$s<li class="nav-client-login-item"><a href="http://clients.greatonmedical.com/" class="nav-client-login" target="_blank" rel="noopener noreferrer">Client Login</a></li></ul>',
       'fallback_cb'    => false,
     ]); ?>
     <?php
@@ -38,7 +38,7 @@
       $cta_text = get_post_meta($pid, 'grt_nav_cta_text', true) ?: 'Request Marketing Review';
       $cta_url  = get_post_meta($pid, 'grt_nav_cta_url',  true) ?: '#';
     ?>
-    <a href="<?php echo esc_url($cta_url); ?>" class="nav-cta"><?php echo esc_html($cta_text); ?></a>
+    <a href="<?php echo esc_url($cta_url); ?>" class="nav-cta" target="_blank" rel="noopener noreferrer"><?php echo esc_html($cta_text); ?></a>
     <button id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -46,12 +46,12 @@
 
   <div id="mobile-nav" aria-hidden="true">
     <div class="mobile-nav-links">
-      <?php wp_nav_menu(['theme_location' => 'main-nav', 'container' => false, 'menu_class' => 'mobile-nav-ul', 'items_wrap' => '<ul class="%2$s">%3$s</ul>', 'fallback_cb' => false]); ?>
+      <?php wp_nav_menu(['theme_location' => 'main-nav', 'container' => false, 'menu_class' => 'mobile-nav-ul', 'items_wrap' => '<ul class="%2$s">%3$s<li class="nav-client-login-item"><a href="http://clients.greatonmedical.com/" class="nav-client-login" target="_blank" rel="noopener noreferrer">Client Login</a></li></ul>', 'fallback_cb' => false]); ?>
     </div>
     <?php
       $pid      = get_option('page_on_front');
       $cta_text = get_post_meta($pid, 'grt_nav_cta_text', true) ?: 'Request Marketing Review';
       $cta_url  = get_post_meta($pid, 'grt_nav_cta_url',  true) ?: '#';
     ?>
-    <a href="<?php echo esc_url($cta_url); ?>" class="mobile-nav-cta cta-common"><?php echo esc_html($cta_text); ?></a>
+    <a href="<?php echo esc_url($cta_url); ?>" class="mobile-nav-cta cta-common" target="_blank" rel="noopener noreferrer"><?php echo esc_html($cta_text); ?></a>
   </div>
